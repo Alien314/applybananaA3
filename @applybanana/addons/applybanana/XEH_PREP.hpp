@@ -1,0 +1,2 @@
+["z\ab\addons\applybanana\fnc_banTour.sqf", "ab_applybanana_fnc_banTour"] call CBA_fnc_compileFunction;
+["z\ab\addons\applybanana\fnc_banamina.sqf", "ab_applybanana_fnc_banamina"] call CBA_fnc_compileFunction;
