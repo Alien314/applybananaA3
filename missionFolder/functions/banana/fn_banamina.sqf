@@ -1,5 +1,17 @@
-params ["_medic", "_patient"];
+params ["_patient","_medic","",["_first",true]];
 //, "_bodyPart", "_classname", "", "_usedItem"
+
+if (_first) exitWith {
+	[
+		ace_medical_treatment_treatmentTimeAutoinjector,
+		[_medic, _patient],
+		{(_this # 0) params ["_medic", "_patient"]; [_medic,_patient,"",false] call ab_fnc_banamina},
+		{},
+		"Administering Banana...",
+		{true},
+		["isNotInside"]
+	] call ace_common_fnc_progressBar;
+};
 
 private _bodyPart = "head";
 private _usedItem = "ACE_Banana";
