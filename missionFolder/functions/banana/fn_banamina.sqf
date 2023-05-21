@@ -1,11 +1,15 @@
 params ["_patient","_medic","",["_first",true]];
 //, "_bodyPart", "_classname", "", "_usedItem"
 
-if (_first) exitWith {
+if (_first) exitWith { // First run just does the progress bar that activates the effect
 	[
 		ace_medical_treatment_treatmentTimeAutoinjector,
 		[_medic, _patient],
-		{(_this # 0) params ["_medic", "_patient"]; [_medic,_patient,"",false] call ab_fnc_banamina},
+		{
+            (_this # 0) params ["_medic", "_patient"];
+            [_medic, _usedItem] call ace_common_fnc_useItem; // use banana
+            [_medic,_patient,"",false] call ab_fnc_banamina; // trigger the effect
+        },
 		{},
 		"Administering Banana...",
 		{true},
@@ -13,27 +17,29 @@ if (_first) exitWith {
 	] call ace_common_fnc_progressBar;
 };
 
+if !(local _patient) exitWith {
+   _this remoteExec ["ab_fnc_banamina",_patient]; // Do the effect local to the patient
+};
+if (isDedicated) exitWith {}; // No effect on AI/Server
+
 private _bodyPart = "head";
 private _usedItem = "ACE_Banana";
 
-[_medic, _usedItem] call ace_common_fnc_useItem;
+_patient setVariable ["ab_boostActive", true, true]; // Disables more bananas until the effect ends
 
-if !(local _patient) exitWith {_this remoteExec ["ab_fnc_banamina",_patient];};
-if (isDedicated) exitWith {};
-_patient setVariable ["ab_boostActive", true, true];
+// Show on triage card
 [_patient, _usedItem] call ace_medical_treatment_fnc_addToTriageCard;
 [_patient, "activity", "%1 administered %2", [[_medic, false, true] call ace_common_fnc_getName, "Banana"]] call ace_medical_treatment_fnc_addToLog;
-if (!ace_advanced_fatigue_enabled) exitWith {};
 
-// if remoteExec limited, use target event?
-// ["ab_applybanana_banaminaLocal", [_patient, _bodyPart, _classname], _patient] call CBA_fnc_targetEvent;
+if (!ace_advanced_fatigue_enabled) exitWith {}; // Doesn't do anything without Adv. Fatigue
 
 //#define AE1_MAXRESERVE 4000000
 //#define AE2_MAXRESERVE   84000
-#define AN_MAXRESERVE     2300
+#define AN_MAXRESERVE     2300 // ACE's Reserve caps
 
 // can replace the Plus values with a number or calculation if you don't want full stam reset.
-//private _ae1Plus = AE1_MAXRESERVE; // regen factor, optional
+
+//private _ae1Plus = AE1_MAXRESERVE; // Stamina regen factor, optional
 //ace_advanced_fatigue_ae1Reserve = ((ace_advanced_fatigue_ae1Reserve + (_ae1Plus)) min AE1_MAXRESERVE);
 
 //private _ae2Plus = AE2_MAXRESERVE; // regen factor, optional

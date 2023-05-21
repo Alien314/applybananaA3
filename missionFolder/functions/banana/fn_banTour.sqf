@@ -1,10 +1,12 @@
 params ["_patient","_medic","",["_first",true]]; //, "_bodyPart", "_classname", "", "_usedItem"
 
-if (_first) exitWith {
+if (_first) exitWith { // First run just does the progress bar that activates the effect
 	[
 		ace_medical_treatment_treatmentTimeTourniquet,
 		[_medic, _patient],
-		{(_this # 0) params ["_medic", "_patient"]; [_medic,_patient,"",false] call ab_fnc_banTour},
+		{   (_this # 0) params ["_medic", "_patient"]; 
+            [_medic,_patient,"",false] call ab_fnc_banTour;
+        },
 		{},
 		"Applying Banana...",
 		{true},
@@ -15,15 +17,16 @@ if (_first) exitWith {
 private _bodyPart = "head";
 private _usedItem = "ACE_Banana";
 
-[_medic, _usedItem] call ace_common_fnc_useItem;
+[_medic, _usedItem] call ace_common_fnc_useItem; // spend banana
 
 //_this call ace_medical_treatment_fnc_tourniquet;
 if ([_patient, _bodyPart] call ace_medical_treatment_fnc_hasTourniquetAppliedTo) exitWith {
-    ["There is already a bananiquet on this body part!", 1.5] call ace_common_fnc_displayTextStructured; // todo: localize
+    ["There is already a bananiquet on this body part!", 1.5] call ace_common_fnc_displayTextStructured; // meme
 };
 [_patient, _usedItem] call ace_medical_treatment_fnc_addToTriageCard;
 [_patient, "activity", "%1 applied a banana", [[_medic, false, true] call ace_common_fnc_getName]] call ace_medical_treatment_fnc_addToLog;
 
-["ace_medical_treatment_tourniquetLocal", [_patient, _bodyPart], _patient] call CBA_fnc_targetEvent;
+["ace_medical_treatment_tourniquetLocal", [_patient, _bodyPart], _patient] call CBA_fnc_targetEvent; // Add head tourniquet
 
+// Remove it after 30 secs
 [{_this call ace_medical_treatment_fnc_tourniquetRemove;}, [objNull, _patient, _bodyPart], 30] call CBA_fnc_waitAndExecute;

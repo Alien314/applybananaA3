@@ -3,7 +3,7 @@ if (enableBanana && {
     ace_advanced_fatigue_enabled && {
     !isClass(configFile >> "ace_medical_treatment_actions" >> "AdministerBanana")}}
 ) then
-{
+{ // Add ace interact actions, depending on medical gui setting
 	private _action =
 	[
 		"ab_banamina","Administer Banana","\z\ace\addons\common\data\icon_banana_ca.paa",
@@ -23,11 +23,12 @@ if (enableBanana && {
 	] call ace_interact_menu_fnc_createAction;
     if (ace_medical_gui_enableSelfActions isEqualTo false) then {
 	    ["CAManBase", 1, ["ACE_SelfActions","ACE_Equipment"], _action, true] call ace_interact_menu_fnc_addActionToClass;
-    };
+    }; // Self Action goes in equipment if interact menu is disabled for medical self actions
     if (ace_medical_gui_enableSelfActions isEqualTo true) then {
 	    ["CAManBase", 1, ["ACE_SelfActions","ACE_Medical","ACE_Head"], _action, true] call ace_interact_menu_fnc_addActionToClass;
-    };
+    }; // Otherwise goes to head interact
 
+    // Action on others is in basic interact if not set to Radial or Selections(3D).
     if (ace_medical_gui_enableActions isEqualTo 2) then {
 	    ["CAManBase", 0, ["ACE_MainActions"], _action, true] call ace_interact_menu_fnc_addActionToClass;
     };
