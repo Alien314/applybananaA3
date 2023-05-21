@@ -25,13 +25,13 @@ if (isDedicated) exitWith {}; // No effect on AI/Server
 private _bodyPart = "head";
 private _usedItem = "ACE_Banana";
 
-_patient setVariable ["ab_boostActive", true, true]; // Disables more bananas until the effect ends
-
 // Show on triage card
 [_patient, _usedItem] call ace_medical_treatment_fnc_addToTriageCard;
 [_patient, "activity", "%1 administered %2", [[_medic, false, true] call ace_common_fnc_getName, "Banana"]] call ace_medical_treatment_fnc_addToLog;
 
 if (!ace_advanced_fatigue_enabled) exitWith {}; // Doesn't do anything without Adv. Fatigue
+
+_patient setVariable ["ab_boostActive", true, true]; // Disables more bananas until the effect ends
 
 //#define AE1_MAXRESERVE 4000000
 //#define AE2_MAXRESERVE   84000
@@ -53,14 +53,15 @@ private _anPlus = AN_MAXRESERVE;
     params ["_anPlus"];
 	private _duration = 30;
 	private _perSecond = (_anPlus / _duration);
+    private _unit = ACE_Player;
 
 	for "_i" from 1 to _duration do {
         sleep 1; // ace fatigue main loop runs once a second
         // or condition can be removed for temporary stamina boost beyond refill
-        if (!alive ACE_Player || { ace_advanced_fatigue_anReserve >= AN_MAXRESERVE}) exitWith {};
+        if (!alive  _unit || { ace_advanced_fatigue_anReserve >= AN_MAXRESERVE}) exitWith {};
         ace_advanced_fatigue_anReserve = (ace_advanced_fatigue_anReserve + (_perSecond)) min AN_MAXRESERVE;
     };
-	ACE_Player setVariable ["ab_boostActive", nil, true];
+	_unit setVariable ["ab_boostActive", nil, true];
 };
 
 /*/ optional?

@@ -20,8 +20,8 @@ class Extended_PreInit_EventHandlers
 };
 
 class ace_medical_treatment_actions {
-	class ApplyTourniquet;
-
+	/*class ApplyTourniquet;
+	// Temporary head tourniquet
 	class ApplyBanana : ApplyTourniquet {
 		displayName = "Apply Banana";
         displayNameProgress = "Applying Banana...";
@@ -32,17 +32,17 @@ class ace_medical_treatment_actions {
         allowedUnderwater = 0;
         litter[] = {{"ACE_Banana"}};
         //litter[] = {"ab_bananaPeel"};
-	};
+	};*/
 
 	class Morphine;
-
+	// Adrenaline/Stam restore effect
 	class AdministerBanana : Morphine {
 		displayName = "Administer Banana";
         displayNameProgress = "Administering Banana...";
         allowedSelections[] = {"Head"};
         icon = "\z\ace\addons\common\data\icon_banana_ca.paa";
         items[] = {"ACE_Banana"};
-        condition = "ace_advanced_fatigue_enabled";
+        condition = "ace_advanced_fatigue_enabled"; // && {isPlayer (_this select 1)}
         callbackSuccess = "ab_applybanana_fnc_banamina";
         //callbackSuccess = "(mod prefix)_fnc_banamina";
         //sounds[] = {{QPATHTO_R(sounds\Inject.ogg),1,1,50}};
