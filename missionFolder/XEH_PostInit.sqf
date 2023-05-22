@@ -35,3 +35,5 @@ if (enableBanana && {
 	    ["CAManBase", 0, ["ACE_MainActions","ACE_Medical_Radial","ACE_Head"], _action, true] call ace_interact_menu_fnc_addActionToClass;
 	    ["CAManBase", 0, ["ACE_Head"], _action, true] call ace_interact_menu_fnc_addActionToClass;
 };
+
+#include "initSettings.sqf"

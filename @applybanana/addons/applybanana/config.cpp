@@ -5,7 +5,7 @@ class CfgPatches {
         weapons[] = {};
         requiredVersion = "0.1";
         requiredAddons[] = {"cba_main","ace_medical_treatment","ace_advanced_fatigue"};
-        author = "Alien314, Banzerschreck";
+        author = "Alien314, Banzerschreck"; // Thanks for the idea Banzer
         url = "";
         authorUrl = "";
     };
@@ -16,6 +16,14 @@ class Extended_PreInit_EventHandlers
 	class ab_banana
 	{
 		init="call compileScript ['z\ab\addons\applybanana\XEH_preInit.sqf']";
+	};
+};
+
+class Extended_PostInit_EventHandlers
+{
+	class ab_banana
+	{
+		init="call compileScript ['z\ab\addons\applybanana\XEH_postInit.sqf']";
 	};
 };
 

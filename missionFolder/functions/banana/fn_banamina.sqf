@@ -46,19 +46,19 @@ _patient setVariable ["ab_boostActive", true, true]; // Disables more bananas un
 //ace_advanced_fatigue_ae2Reserve = ((ace_advanced_fatigue_ae2Reserve + (_ae2Plus)) min AE2_MAXRESERVE);
 
 // This is the visble stam bar value that controls speed
-private _anPlus = AN_MAXRESERVE;
+private _anPlus = AN_MAXRESERVE * ab_stamRegenAmount;
 //ace_advanced_fatigue_anReserve = (ace_advanced_fatigue_anReserve + (_anPlus)) min AN_MAXRESERVE;
 
 [_anPlus] spawn { // regen over time instead of instant
     params ["_anPlus"];
-	private _duration = 30;
+	private _duration = ab_stamRegenDuration;
 	private _perSecond = (_anPlus / _duration);
     private _unit = ACE_Player;
 
 	for "_i" from 1 to _duration do {
         sleep 1; // ace fatigue main loop runs once a second
         // or condition can be removed for temporary stamina boost beyond refill
-        if (!alive  _unit || { ace_advanced_fatigue_anReserve >= AN_MAXRESERVE}) exitWith {};
+        if (!alive  _unit || { !ab_regenAfterFull && {ace_advanced_fatigue_anReserve >= AN_MAXRESERVE}}) exitWith {};
         ace_advanced_fatigue_anReserve = (ace_advanced_fatigue_anReserve + (_perSecond)) min AN_MAXRESERVE;
     };
 	_unit setVariable ["ab_boostActive", nil, true];
