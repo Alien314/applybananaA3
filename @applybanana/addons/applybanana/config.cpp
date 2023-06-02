@@ -57,4 +57,28 @@ class ace_medical_treatment_actions {
         litter[] = {{"ACE_Banana"}};
         //litter[] = {"ab_bananaPeel"};
     };
+
+	/*/ New item treatment
+	class Adrenaline : Morphine {
+		displayName = "Inject Adrenaline";
+        displayNameProgress = "Administering Adrenaline...";
+        // icon = "(mod prefix)\data\icon_adrenaline_ca.paa";
+        //items[] = {"(mod prefix)_adrenaline"};
+        condition = "ace_advanced_fatigue_enabled"; // && {isPlayer (_this select 1)}
+        callbackSuccess = "(mod prefix)_fnc_banamina";
+    };
+    //*/
 };
+
+/*/ New item
+class CfgWeapons {
+	class ACE_morphine;
+
+	class (mod prefix)_adrenaline : ACE_morphine {
+		displayName = "Adrenaline Autoinjector";
+        //picture = (mod path)ui\adrenaline_ca.paa);
+        //model = (mod path)data\morphine.p3d);
+        descriptionShort = "Reduces the felt effects of fatigue temporarily.";
+        descriptionUse = "Temporarily reduces felt effects of fatigue, allowing user to ignore strain.";
+	};
+};//*/
