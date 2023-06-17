@@ -30,7 +30,13 @@ class CfgVehicles {
 		};
 	};
 
-    class Tank_F;
+    class Tank;
+	class Tank_F : Tank {
+		class NewTurret;
+		class Turrets {
+			class MainTurret : NewTurret {};
+		};
+	};
 	class APC_Tracked_02_base_F : Tank_F {
 		class NewTurret;
 	};
@@ -83,6 +89,15 @@ class CfgVehicles {
 			class MainTurret : MainTurret {
 				weapons[] = {"CUP_Vacannon_2A42_BMP2","CUP_Vhmg_PKT_veh_Noeject","CUP_Vmlauncher_AT5_single_veh"};
 				magazines[] = {"CUP_340Rnd_TE1_Green_Tracer_30mmHEIF_2A42_M","CUP_160Rnd_TE1_Green_Tracer_30mmAPBC_2A42_M","CUP_8Rnd_AT5_BMP2_M","CUP_250Rnd_TE1_Green_Tracer_762x54_PKT_M","CUP_250Rnd_TE1_Green_Tracer_762x54_PKT_M","CUP_250Rnd_TE1_Green_Tracer_762x54_PKT_M","CUP_250Rnd_TE1_Green_Tracer_762x54_PKT_M","CUP_250Rnd_TE1_Green_Tracer_762x54_PKT_M","CUP_250Rnd_TE1_Green_Tracer_762x54_PKT_M","CUP_250Rnd_TE1_Green_Tracer_762x54_PKT_M","CUP_250Rnd_TE1_Green_Tracer_762x54_PKT_M"};
+			};
+		};
+	};
+
+	class CUP_M60A3_Base : Tank_F {
+		class Turrets : Turrets {
+			class MainTurret : MainTurret {
+				weapons[] = {"CUP_Vcannon_M68_veh","CUP_Vlmg_M240_veh"};
+				magazines[] = {"CUP_40Rnd_TE1_Red_Tracer_105mmSABOT_M68_Cannon_M","CUP_23Rnd_TE1_Red_Tracer_105mmHEAT_M68_Cannon_M","CUP_1200Rnd_TE4_Red_Tracer_762x51_M240_M","CUP_1200Rnd_TE4_Red_Tracer_762x51_M240_M","CUP_1200Rnd_TE4_Red_Tracer_762x51_M240_M"};
 			};
 		};
 	};
