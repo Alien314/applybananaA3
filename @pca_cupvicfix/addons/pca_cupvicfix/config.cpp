@@ -94,10 +94,17 @@ class CfgVehicles {
 	};
 
 	class CUP_M60A3_Base : Tank_F {
+		class CommanderOptics;
 		class Turrets : Turrets {
 			class MainTurret : MainTurret {
 				weapons[] = {"CUP_Vcannon_M68_veh","CUP_Vlmg_M240_veh"};
 				magazines[] = {"CUP_40Rnd_TE1_Red_Tracer_105mmSABOT_M68_Cannon_M","CUP_23Rnd_TE1_Red_Tracer_105mmHEAT_M68_Cannon_M","CUP_1200Rnd_TE4_Red_Tracer_762x51_M240_M","CUP_1200Rnd_TE4_Red_Tracer_762x51_M240_M","CUP_1200Rnd_TE4_Red_Tracer_762x51_M240_M"};
+				class Turrets : Turrets {
+					class CommanderOptics : CommanderOptics {
+						gunnerInAction = "GetInHigh";
+						gunnerAction = "GetInLow";
+					};
+				};
 			};
 		};
 	};
@@ -146,10 +153,30 @@ class CfgVehicles {
 		cargoGetInAction[] = {"GetInLow"};
 		cargoGetOutAction[] = {"GetOutLow"};
 	};
+	/*class CUP_B_FV432 : CUP_B_FV432_Bulldog_GB_D {
+		class Turrets {
+			class MainTurret;
+			class Commander : MainTurret {
+				weapons[] = {};
+				magazines[] = {};
+			};
+		};
+	};
+	class CUP_B_FV432_GB_GPMG : CUP_B_FV432 {
+	};
+	class CUP_B_FV432_Mortar : CUP_B_FV432_GB_GPMG {
+		class Turrets {
+			class MainTurret;
+			class MortarTurret : MainTurret {
+				gunnerAction = "GetInLow";
+				gunnerInAction = "GetOutLow";
+			};
+		};
+	};*/
 };
-/*/ 
 class CfgWeapons {
-	class CannonCore;
+	
+/*/ class CannonCore;
 
     class CUP_Vacannon_M242_veh : CannonCore {
 		muzzles[] = {"this"};
@@ -158,5 +185,10 @@ class CfgWeapons {
     class CUP_Vacannon_2A42_veh : CannonCore {
 		magazines[] = {"CUP_250Rnd_TE1_Green_Tracer_30mmHE_2A42_M","CUP_250Rnd_TE1_Green_Tracer_30mmAP_2A42_M"};
 		muzzles[] = {"this"};
-	};
-};//*/
+	};///
+	class Mode_FullAuto;
+	class CUP_Vlmg_M240_veh;
+	class CUP_Vlmg_L7A2_veh : CUP_Vlmg_M240_veh {
+		class manual : Mode_FullAuto { reloadTime = 0.25; };
+	};//*/
+};
