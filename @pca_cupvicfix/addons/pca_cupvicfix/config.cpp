@@ -12,7 +12,8 @@ class CfgPatches {
             "CUP_AirVehicles_LoadOrder",
             "CUP_TrackedVehicles_LoadOrder",
             "CUP_WaterVehicles_LoadOrder",
-            "CUP_WheeledVehicles_LoadOrder"
+            "CUP_WheeledVehicles_LoadOrder",
+			"hlcweapons_scar"
         };
     };
 };
@@ -175,8 +176,13 @@ class CfgVehicles {
 	};*/
 };
 class CfgWeapons {
-	
-/*/ class CannonCore;
+	class UGL_F;
+	class Rifle_Base_F;
+	class hlc_scarl_base : Rifle_Base_F {
+		class hlc_GL_SCAR_AGC : UGL_F { reloadAction = "NIA_GestureReloadM320_Mk17"; };
+	};
+
+	/*/ class CannonCore;
 
     class CUP_Vacannon_M242_veh : CannonCore {
 		muzzles[] = {"this"};
