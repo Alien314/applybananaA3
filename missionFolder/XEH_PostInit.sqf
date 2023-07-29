@@ -1,5 +1,5 @@
 // Add below to this file in your mission folder
-if (enableBanana && {
+if (ab_enableBanana && {
     ace_advanced_fatigue_enabled && {
     !isClass(configFile >> "ace_medical_treatment_actions" >> "AdministerBanana")}}
 ) then
@@ -30,5 +30,3 @@ if (enableBanana && {
     ["CAManBase", 0, ["ACE_MainActions","ACE_Medical_Radial","ACE_Head"], _action, true] call ace_interact_menu_fnc_addActionToClass;
     ["CAManBase", 0, ["ACE_Head"], _action, true] call ace_interact_menu_fnc_addActionToClass;
 };
-
-#include "initSettings.sqf"
