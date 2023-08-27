@@ -116,6 +116,13 @@ if (isMultiplayer) then {
 			}, false, [], true] call CBA_fnc_addClassEventHandler;
 		};
 	};
+	if (didJIP && {!isNil "pca_didRename"}) then {
+		0 spawn {
+			waitUntil {time > 0};
+			sleep 5;
+			[clientOwner,"tmf_orbat_orbatMarkerArray"] remoteExec ["publicVariableClient",2];
+		};
+	};
 };
 
 //if (isDedicated) exitWith {};

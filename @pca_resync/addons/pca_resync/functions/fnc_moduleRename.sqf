@@ -33,7 +33,10 @@ if !(isNil "tmf_orbat_orbatMarkerArray") exitWith {
 		publicVariable "tmf_orbat_orbatMarkerArray";
 		private _group = (_marker select 8);
 		_group setGroupIdGlobal [_name];
-
+		
+		if (isNil "pca_didRename") then {
+			pca_didRename = true;
+			publicVariable "pca_didRename";};
 		(format ["%1 renamed your group to %2.",(name player),_name]) remoteExec ["systemChat",_group];
 	},{},[_marker]] call zen_dialog_fnc_create;
 };
