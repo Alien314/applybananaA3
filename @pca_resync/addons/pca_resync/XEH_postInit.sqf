@@ -54,6 +54,32 @@ if (isServer) then {
 	};
 };
 
+if (pca_disableGunnerBail) then {
+	[{  private _eventHash = (cba_events_eventHashes getVariable ["ace_vehicle_damage_bailOut", nil]);
+		private _eventId = [_eventHash, "#lastId"] call CBA_fnc_hashGet;
+		if (isServer && {_eventId > 0}) then {systemChat "PCA > Disable gunner bail being on may cause issues due to another mod besides ACE using the same event."};
+		["ace_vehicle_damage_bailOut", 0] call CBA_fnc_removeEventHandler;
+		["ace_vehicle_damage_bailOut", {
+			params ["_center", "_crewman", "_vehicle"];
+
+			if (isPlayer _crewman) exitWith {};
+			private _canShoot = (_vehicle getVariable ["ace_vehicle_damage_canShoot",true]);
+			if (!alive _crewman || { !( [_crewman] call ace_common_fnc_isAwake)) || {_crewman isEqualTo (gunner _vehicle) && {_canShoot}}} ) exitWith {};
+
+			unassignVehicle _crewman;
+			if (!_canShoot) then {_crewman leaveVehicle _vehicle;};
+			doGetOut _crewman;
+
+			private _angle = floor (random 360);
+			private _dist = (30 + (random 10));
+			private _escape = _center getPos [_dist, _angle];
+
+			_crewman doMove _escape;
+			_crewman setSpeedMode "FULL";
+		}] call CBA_fnc_addEventHandler;
+	}, nil, 3] call cba_fnc_waitAndExecute;
+};
+
 if (isMultiplayer) then {
 	if (pca_carryLocal && {!isNil "ace_dragging"}) then {
 		pca_carryLocalHandle = ["pca_carryLocal", {

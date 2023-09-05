@@ -34,6 +34,18 @@ private _category = "Locality";
     true
 ] call CBA_fnc_addSetting;
 
+private _category = "AI";
+[
+    "pca_disableGunnerBail",
+    "CHECKBOX",
+    ["Disable Gunner bailout", "Prevents gunners from bailing if they can still shoot."],
+    [_title, _category],
+    true,
+    true,
+    { },
+    true
+] call CBA_fnc_addSetting;
+
 private _category = "Thermal Vision";
 [
     "pca_thermalStart",
