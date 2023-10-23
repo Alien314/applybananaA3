@@ -64,7 +64,7 @@ if (pca_disableGunnerBail) then {
 
 			if (isPlayer _crewman) exitWith {};
 			private _canShoot = (_vehicle getVariable ["ace_vehicle_damage_canShoot",true]);
-			if (!alive _crewman || { !( [_crewman] call ace_common_fnc_isAwake)) || {_crewman isEqualTo (gunner _vehicle) && {_canShoot}}} ) exitWith {};
+			if (!alive _crewman || { !( [_crewman] call ace_common_fnc_isAwake) || {_canShoot && { pca_fullDismount || {(_crewman isEqualTo (gunner _vehicle))} } } } ) exitWith {};
 
 			unassignVehicle _crewman;
 			if (!_canShoot) then {_crewman leaveVehicle _vehicle;};
@@ -179,6 +179,13 @@ if (!isNil "ace_interact_menu") then {
 		if (_mode == -1) exitWith {}; [_mode] call ace_microdagr_fnc_openDisplay; };
     if ((_extradata getOrDefault ["pca_gpsMode", false]) && {"ItemGPS" in (_unit call ace_common_fnc_uniqueItems)}) then {
 		openGPS true;};
+	[_unit,(_extradata getOrDefault ["pca_goggles", ""])] spawn { params ["_unit","_goggs"]; sleep 1;
+//systemChat (_goggs + ", " + (goggles _unit) + ".");
+		if (_goggs isNotEqualTo "") then {
+			_unit addGoggles _goggs;
+//systemChat ((goggles _unit) + ".");
+		};
+	};
 }] call CBA_fnc_addEventHandler;
 
 ["CBA_loadoutGet", {
@@ -187,4 +194,14 @@ if (!isNil "ace_interact_menu") then {
     if (!isNil "_mode") then {
         _extradata set ["pca_dagrMode", _mode];};
 	if (visibleGPS) then {_extradata set ["pca_gpsMode", true];};
+	private _goggs = goggles _unit; 
+	if (_goggs isNotEqualTo "") then {
+		_extradata set ["pca_goggles", _goggs];
+	};
 }] call CBA_fnc_addEventHandler;
+
+0 spawn { sleep 5;
+	private _pointKeybinds = ((["ACE3 Common", "ace_finger_finger"] call CBA_fnc_getKeybind) select 8);
+	{	(_x + [{ call mjb_perks_fnc_jam; }, "keydown", "", false]) call CBA_fnc_addKeyHandler;
+	} forEach _pointKeybinds;
+};

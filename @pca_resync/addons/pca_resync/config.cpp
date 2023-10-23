@@ -67,7 +67,7 @@ class CfgVehicles
 	};
 	class pca_moduleRename : pca_moduleBase {
         curatorCanAttach = 1;
-        displayName = "Rename Group (TMF Orbat)";
+        displayName = "Rename Unit's Group";
 		function = "pca_resync_fnc_moduleRename";
 		icon = "\A3\ui_f\data\gui\cfg\Hints\UnitType_CA.paa";
         isGlobal = 0;

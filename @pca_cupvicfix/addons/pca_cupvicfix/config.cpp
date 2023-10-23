@@ -165,6 +165,7 @@ class CfgVehicles {
 	};
 	class CUP_B_FV432_GB_GPMG : CUP_B_FV432 {
 	};
+	// Mortar sight doesn't work, no clue how to fix that
 	class CUP_B_FV432_Mortar : CUP_B_FV432_GB_GPMG {
 		class Turrets {
 			class MainTurret;
@@ -174,7 +175,28 @@ class CfgVehicles {
 			};
 		};
 	};*/
+
+	/*class Heli_Light_02_base_F;
+	class RHS_Mi8_base : Heli_Light_02_base_F { // GPS not usable even with GPS item
+		enableGPS = 0;
+		class Components {
+			class VehicleSystemsDisplayManagerComponentLeft {
+				class Components {
+					class  {};
+				};
+			};
+			class VehicleSystemsDisplayManagerComponentLeft {
+				class Components {
+					class  {};
+				};
+			};
+		};
+	};
+	class RHS_mi24G // no nvg mode on gunner turret
+
+*/
 };
+
 class CfgWeapons {
 	class UGL_F;
 	class Rifle_Base_F;
