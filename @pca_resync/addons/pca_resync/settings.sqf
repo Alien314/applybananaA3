@@ -23,6 +23,17 @@ private _category = "Locality";
     true
 ] call CBA_fnc_addSetting;
 
+[
+    "pca_zeusCompKilled",
+    "CHECKBOX",
+    ["Shift Zeus Comps", "Shift zeus local AI to the server on death, making them lootable for players. (Maybe fixed by vanilla update, might just makes them ragdoll ridiculously for no reason.)"],
+    [_title, _category],
+    false,
+    true,
+    { },
+    true
+] call CBA_fnc_addSetting;
+
 private _category = "AI";
 [
     "pca_disableGunnerBail",
@@ -73,17 +84,6 @@ private _category = "Thermal Vision";
 private _category = "Shenanigans";
 
 [
-    "pca_zeusCompKilled",
-    "CHECKBOX",
-    ["Shift Zeus Comps", "Shift zeus local AI to the server on death, making them lootable for players. (Probably fixed by vanilla update, this just makes them ragdoll ridiculously now)"],
-    [_title, _category],
-    false,
-    true,
-    { },
-    true
-] call CBA_fnc_addSetting;
-
-[
     "pca_fingerRange",
     "SLIDER",
     [("Finger Jam Range"), "Range in meters where point will force a reload. 0 disables."],
@@ -99,7 +99,7 @@ private _category = "Shenanigans";
 [
     "pca_allowJam",
     "CHECKBOX",
-    ["Allow Jam", "Let other players force you to reload by pointing at you within ~2m."],
+    ["Allow Jam", "Let other players force you to reload by pointing at you within the range defined above on the server."],
     [_title, _category],
     false,
     false

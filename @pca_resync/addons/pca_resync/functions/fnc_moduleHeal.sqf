@@ -8,7 +8,7 @@ deleteVehicle _logic;
 private _isObj = _unit isEqualType objNull;
 private _isPerson = (_isObj && {(_unit isKindOf "CAManBase")});
 if (isNull _unit || { !_isObj }) exitWith {
-    //[objNull, "No unit or vehicle selected."] call BIS_fnc_showCuratorFeedbackMessage;spawn {
+    //[objNull, "No unit or vehicle selected."] call BIS_fnc_showCuratorFeedbackMessage;
 	private _response = true;
 	_response = [
 		"Admin heal everyone?", // body

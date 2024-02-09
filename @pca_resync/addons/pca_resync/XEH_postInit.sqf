@@ -109,18 +109,26 @@ if (isMultiplayer) then {
 	if (pca_resyncAction) then {
 		if (hasInterface) then {player createDiarySubject ["pca_resync", "Resync"];};
 		pca_resyncEH = ["pca_resyncPlayer", { params ["_unit"];
-			_unit spawn { params ["_unit"]; waitUntil {sleep 5; isPlayer _unit};
+			_unit spawn { params ["_unit"]; waitUntil {sleep 5; isPlayer _unit || {!(alive _unit)}};
 				sleep 1;
+				if (!alive _unit) exitWith {};
 				private _var = ("pca_" + (((name _unit) splitString "([ ]/:){}") joinString ""));
 				private _assign = (missionNamespace getVariable [_var,nil]);
 				missionNamespace setVariable [_var,_unit];
 				if (!hasInterface || {!isNil "_assign"}) exitWith {};
+				waitUntil {sleep 5; !(isNull player)};
+				if (!alive _unit) exitWith {};
 				player createDiaryRecord  ["pca_resync", [(name _unit),format ["<execute expression='if !(isNil ""pca_syncCD"") exitWith {}; pca_syncCD = false; [{pca_syncCD = nil;},[],60] call CBA_fnc_waitAndExecute; [""pca_resync"", %1] call CBA_fnc_serverEvent;'>[Re-sync State]</execute>",_var]]];
 			};
 		}] call CBA_fnc_addEventHandler;
-		[{  private _var = ("pca_" + (((name player) splitString "([ ]/:){}") joinString ""));
-			["pca_resyncPlayer",[player], _var] call CBA_fnc_globalEventJIP;
-		}, nil, 3] call cba_fnc_waitAndExecute;
+
+		if (!hasInterface) exitWith {};
+		0 spawn { waitUntil {sleep 5; !(isNull player)};
+			[{  private _var = ("pca_" + (((name player) splitString "([ ]/:){}") joinString ""));
+				["pca_resyncPlayer",[player], _var] call CBA_fnc_globalEventJIP;
+				player spawn pca_resync_fnc_respawnSync;
+			}, nil, 3] call cba_fnc_waitAndExecute;
+		};
 	};
 
 	if !(hasInterface) exitWith {};
@@ -129,7 +137,6 @@ if (isMultiplayer) then {
 			["zen_remoteControlStopped", {
 				if (isServer) exitWith {};
 					["pca_killedToServer", [_this]] call CBA_fnc_serverEvent;
-				//[_this,{waitUntil {sleep 5; !isAwake _this}; _this setOwner 2;}] remoteExec ["spawn",2];
 			}] call CBA_fnc_addEventHandler;
 		} else {
 			["ModuleCurator_F", "InitPost", { params ["_curator"];
@@ -151,8 +158,6 @@ if (isMultiplayer) then {
 	};
 };
 
-//if (isDedicated) exitWith {};
-
 if !(hasInterface) exitWith {};
 
 setTIParameter ["OutputRangeStart", pca_thermalStart];
@@ -163,8 +168,6 @@ if (!isNil "ace_interact_menu") then {
 		"pca_uniformFix","Fix Uniform",
 		"\a3\ui_f\data\gui\rsc\rscdisplayarsenal\uniform_ca.paa",
 		{ 	 params ["", "_player", ""];
-			// will break plates until update
-			//[_player,([_player] call CBA_fnc_getLoadout),false] call CBA_fnc_setLoadout;
 			_player call pca_resync_fnc_switchUniform;
 		},  { true },{ },[],[0,0,0],3,[false, true, false, false, true]
 	] call ace_interact_menu_fnc_createAction;
@@ -180,10 +183,8 @@ if (!isNil "ace_interact_menu") then {
     if ((_extradata getOrDefault ["pca_gpsMode", false]) && {"ItemGPS" in (_unit call ace_common_fnc_uniqueItems)}) then {
 		openGPS true;};
 	[_unit,(_extradata getOrDefault ["pca_goggles", ""])] spawn { params ["_unit","_goggs"]; sleep 1;
-//systemChat (_goggs + ", " + (goggles _unit) + ".");
 		if (_goggs isNotEqualTo "") then {
 			_unit addGoggles _goggs;
-//systemChat ((goggles _unit) + ".");
 		};
 	};
 }] call CBA_fnc_addEventHandler;
@@ -202,6 +203,6 @@ if (!isNil "ace_interact_menu") then {
 
 0 spawn { sleep 5;
 	private _pointKeybinds = ((["ACE3 Common", "ace_finger_finger"] call CBA_fnc_getKeybind) select 8);
-	{	(_x + [{ call mjb_perks_fnc_jam; }, "keydown", "", false]) call CBA_fnc_addKeyHandler;
+	{	(_x + [{ call pca_resync_fnc_jam; }, "keydown", "", false]) call CBA_fnc_addKeyHandler;
 	} forEach _pointKeybinds;
 };

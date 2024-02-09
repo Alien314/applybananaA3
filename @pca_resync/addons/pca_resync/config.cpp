@@ -2,7 +2,7 @@ class CfgPatches {
   class pca_resync {
 	ammo[] = {};
 	magazines[] = {};
-    units[] = {"pca_moduleResync","pca_moduleHeal","pca_moduleRename"};//
+    units[] = {"pca_moduleResync","pca_moduleHeal","pca_moduleRename","pca_moduleMoveArsenal","pca_moduleToggleGroupMarker"};//
     weapons[] = {};
     requiredVersion = 0.1;
     author = "Alien314";
@@ -58,9 +58,22 @@ class CfgVehicles
         scope = 1;
         scopeCurator = 2;
     };
+	class pca_moduleToggleGroupMarker : pca_moduleBase {
+        curatorCanAttach = 1;
+        displayName = "Toggle ORBAT Marker Visibility of Unit's Group";
+		function = "pca_resync_fnc_moduleToggleGroupMarker";
+		icon = "\A3\ui_f\data\Map\Markers\NATO\b_inf.paa";
+        isGlobal = 0;
+	};
+    class pca_moduleMoveArsenal : pca_moduleBase {
+        curatorCanAttach = 1;
+        displayName = "Move Arsenal Location for Unit/All";
+        function = "pca_resync_fnc_moduleMoveArsenal";
+        icon = "\A3\ui_f\data\gui\rsc\RscDisplayArsenal\spaceGarage_ca.paa";
+    };
 	class pca_moduleResync : pca_moduleBase {
         curatorCanAttach = 1;
-        displayName = "Re-Sync Player/Crew";
+        displayName = "Re-Sync Player/Crew/All";
 		function = "pca_resync_fnc_moduleResync";
 		icon = "\A3\ui_f\data\gui\cfg\Hints\Adjust_ca.paa";
         isGlobal = 0;
