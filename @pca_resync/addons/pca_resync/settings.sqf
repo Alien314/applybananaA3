@@ -26,7 +26,7 @@ private _category = "Locality";
 [
     "pca_zeusCompKilled",
     "CHECKBOX",
-    ["Shift Zeus Comps", "Shift zeus local AI to the server on death, making them lootable for players. (Maybe fixed by vanilla update, might just makes them ragdoll ridiculously for no reason.)"],
+    ["Shift Zeus Comps", "Shift zeus local AI to the server on death, making them lootable for players. (Maybe partially fixed by vanilla update. Also makes ridiculous ragdolls more common.)"],
     [_title, _category],
     false,
     true,
