@@ -44,6 +44,16 @@ class CfgFactionClasses {
     };
 };
 
+class CfgMarkers {	
+	class flag_NATO;
+	class flag_CA : flag_NATO
+	{
+		icon = "pca\addons\resync\data\canadaFlag_ca.paa";
+		name = "CanadaHeightfixed";
+		texture = "pca\addons\resync\data\canadaFlag_ca.paa";
+	};
+};
+
 class CfgVehicles
 {
     class Module_F;
@@ -91,5 +101,22 @@ class CfgVehicles
 		function = "pca_resync_fnc_moduleHeal";
 		icon = "\A3\ui_f\data\Map\VehicleIcons\pictureHeal_ca.paa";
         isGlobal = 0;
+	};
+
+	class FlagCarrier;
+	class Flag_CA_F : FlagCarrier
+	{
+		_generalMacro = "Flag_CA_F";
+		author = "Canada";
+		displayName = "Flag (Canada)";
+		editorPreview = "\A3\EditorPreviews_F\Data\CfgVehicles\FlagPole_F.jpg";
+		hiddenSelectionsMaterials[] = {"\A3\Structures_F\Mil\Flags\Data\Mast_mil.rvmat"};
+		hiddenSelectionsTextures[] = {"\A3\Structures_F\Mil\Flags\Data\Mast_mil_CO.paa"};
+		scope = 2;
+		scopeCurator = 2;
+		class EventHandlers
+		{
+			init = "(_this select 0) setFlagTexture ""pca\addons\resync\data\canadaFlag_ca.paa""";
+		};
 	};
 };

@@ -173,6 +173,27 @@ if (!isNil "ace_interact_menu") then {
 	] call ace_interact_menu_fnc_createAction;
 
 	["CAManBase", 1, ["ACE_SelfActions","ACE_Equipment"], _action, true] call ace_interact_menu_fnc_addActionToClass;
+
+	/*if (pca_enableAFKToggle) then { // borken for now
+		private _condition = {
+			params ["", "_player"];
+			private _curState = lifeState _player;
+			(_curState isNotEqualTo "INCAPACITATED" || {_curState isEqualTo "INCAPACITATED" && {incapacitatedState _player isNotEqualTo "UNCONSCIOUS"}})
+		};
+		private _statement = {
+		params ["_target", "_player", "_params", "_actionData"];
+		if (_target getVariable ["ACE_isUnconscious", false]) exitWith {_target setVariable ["ACE_isUnconscious", false, true];};
+			_target setVariable ["ACE_isUnconscious", true, true];
+		};
+		private _disableMod = {
+			params ["_target", "_player", "_params", "_actionData"];
+			if (_target getVariable ["ACE_isUnconscious", false]) then {
+				_actionData set [1, "Disable AFK, disallow ace carry"];
+			};
+		};
+		private _action = ["ratsAFK","AFK, allow ace carry","",_statement,_condition, { }, [], [0,0,0], 3, [false, true, false, false, true], _disableMod] call ace_interact_menu_fnc_createAction;
+		["CAManBase", 1, ["ACE_SelfActions","ACE_Equipment"], _action, true] call ace_interact_menu_fnc_addActionToClass;
+	};*/
 };
 
 ["CBA_loadoutSet", {

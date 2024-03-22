@@ -4,9 +4,9 @@ private _category = "Locality";
 [
     "pca_resyncAction",
     "CHECKBOX",
-    ["Enable Resync Action", "Map tab with a list of players and a button to fix if someone is desync'd for you."],
+    ["Enable Resync Action", "Map tab with a list of players and a button to fix if someone is desync'd for you. Can cause people to be stuck in vehicles, until used again."],
     [_title, _category],
-    true,
+    false,
     true,
     { },
     true
@@ -26,7 +26,7 @@ private _category = "Locality";
 [
     "pca_zeusCompKilled",
     "CHECKBOX",
-    ["Shift Zeus Comps", "Shift zeus local AI to the server on death, making them lootable for players. (Maybe partially fixed by vanilla update. Also makes ridiculous ragdolls more common.)"],
+    ["Shift Zeus Comps", "Shift zeus local AI to the server on death, making them lootable for players. (Maybe partially fixed by vanilla update. Also makes ridiculous ragdolls more common for zeus units.)"],
     [_title, _category],
     false,
     true,
@@ -82,6 +82,15 @@ private _category = "Thermal Vision";
 ] call CBA_fnc_addSetting;
 
 private _category = "Shenanigans";
+
+/*[ // broken by ace changes and medical uncon screen
+    "pca_enableAFKToggle",
+    "CHECKBOX",
+    ["Enable AFK Toggle", "Players can toggle ACE's uncon flag to be drag/carryable. (May cause issues with actually going uncon)"],
+    [_title, _category],
+    false,
+    true
+] call CBA_fnc_addSetting;*/
 
 [
     "pca_fingerRange",
