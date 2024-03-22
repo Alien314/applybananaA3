@@ -26,6 +26,6 @@ if (isNull _unit || { !_isObj }) exitWith {
 
 if (!_isPerson) then {_unit = crew _unit;} else {_unit = [_unit]};
 
-{	["ace_medical_treatment_fullHealLocal", [player], _x] call CBA_fnc_targetEvent;
-	(format ["%1 admin healed you.",(name player)]) remoteExec ["systemChat",_x];
+{	["ace_medical_treatment_fullHealLocal", [_x], _x] call CBA_fnc_targetEvent;
+	if (isPlayer _x) then {(format ["%1 admin healed you.",(name player)]) remoteExec ["systemChat",_x];};
 } forEach _unit;

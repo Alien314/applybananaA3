@@ -7,9 +7,16 @@ if (isServer) then {
 					params ["_unit"];
 					if (isPlayer _unit) exitWith {
 						private _owner = owner _unit;
+						private _vicOwner = vehicle _unit isNotEqualTo _unit && {owner Vehicle _unit isEqualTo _owner};
+						if (_vicOwner) then {
+							vehicle _unit setOwner 2;
+						};
 						_unit setOwner 2;
 						sleep 1;
 						_unit setOwner _owner;
+						if (_vicOwner) then {
+							vehicle _unit setOwner _owner;
+						};
 					};
 					//if (_unit in playableUnits) exitWith {};
 					//_unit setDamage [1,false];
