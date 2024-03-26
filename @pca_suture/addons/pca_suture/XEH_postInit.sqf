@@ -16,9 +16,11 @@ if (pca_suture_medicNotif) then {
 	] call CBA_fnc_addEventHandler;
 
 	["pca_suture_treatmentComplete",
-		{ params ["_patient"];
+		{ params ["_patient","_medic"];
 			private _medics = ((_patient getVariable ["pca_suture_medics",1]) - 1);
-			if (_medics < 1 && {(player getVariable ["pca_suture_medics",0]) < 1}) exitWith {
+			private _self = (_medic getVariable ["pca_suture_medics",0]);
+			if (_medic isEqualTo _patient) then {_self = _self - 1};
+			if (_medics < 1 && {_self < 1}) exitWith {
 				_patient setVariable ["pca_suture_medics",nil];
 				"pca_suture_medicNotif" cutFadeOut 1;
 			};
