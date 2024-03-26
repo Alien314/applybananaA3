@@ -7,11 +7,19 @@ deleteVehicle _logic;
 
 private _isObj = _unit isEqualType objNull;
 private _isPerson = (_isObj && {(_unit isKindOf "CAManBase")});
+
+if (_isObj && {!_isPerson}) then {
+	private _lead = [];
+	{
+		_lead = (fullCrew [_unit,_x]);
+		if (_lead isNotEqualTo []) exitWith { _unit = (leader ((_lead select 0) select 0) ); };
+	} forEach ["commander","gunner","driver","turret",""];
+	if (count _lead isEqualTo 0) then {_unit = objNull}; 
+};
+
 if (isNull _unit || { !_isObj }) exitWith {
     //[objNull, "No unit or vehicle selected."] call BIS_fnc_showCuratorFeedbackMessage;
 };
-
-if (!_isPerson) then {_unit = leader driver _unit;};
 
 if !(isNil "tmf_orbat_orbatMarkerArray") exitWith {
 	private _group = group _unit;

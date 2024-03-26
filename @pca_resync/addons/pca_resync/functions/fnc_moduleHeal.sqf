@@ -19,7 +19,7 @@ if (isNull _unit || { !_isObj }) exitWith {
 	] call BIS_fnc_guiMessage;
 	if (!_response) exitWith {};
 
-	{	["ace_medical_treatment_fullHealLocal", [player], _x] call CBA_fnc_targetEvent;
+	{	["ace_medical_treatment_fullHealLocal", [_x], _x] call CBA_fnc_targetEvent;
 		if (isPlayer _x) then {(format ["%1 admin healed you.",(name player)]) remoteExec ["systemChat",_x];};
 	} forEach playableUnits;
 };

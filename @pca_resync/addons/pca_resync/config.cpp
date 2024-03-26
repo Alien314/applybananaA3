@@ -70,14 +70,14 @@ class CfgVehicles
     };
 	class pca_moduleToggleGroupMarker : pca_moduleBase {
         curatorCanAttach = 1;
-        displayName = "Toggle ORBAT Marker Visibility of Unit's Group";
+        displayName = "Toggle ORBAT Visibility (Unit)";
 		function = "pca_resync_fnc_moduleToggleGroupMarker";
 		icon = "\A3\ui_f\data\Map\Markers\NATO\b_inf.paa";
         isGlobal = 0;
 	};
     class pca_moduleMoveArsenal : pca_moduleBase {
         curatorCanAttach = 1;
-        displayName = "Move Arsenal Location for Unit/All";
+        displayName = "Move Arsenal (Unit/All)";
         function = "pca_resync_fnc_moduleMoveArsenal";
         icon = "\A3\ui_f\data\gui\rsc\RscDisplayArsenal\spaceGarage_ca.paa";
     };
@@ -90,14 +90,14 @@ class CfgVehicles
 	};
 	class pca_moduleRename : pca_moduleBase {
         curatorCanAttach = 1;
-        displayName = "Add/Rename Unit's Group in ORBAT";
+        displayName = "Add/Rename ORBAT (Unit)";
 		function = "pca_resync_fnc_moduleRename";
 		icon = "\A3\ui_f\data\gui\cfg\Hints\UnitType_CA.paa";
         isGlobal = 0;
 	};
 	class pca_moduleHeal : pca_moduleBase {
         curatorCanAttach = 1;
-        displayName = "Heal Player/Crew";
+        displayName = "Heal (Unit/Crew/All)";
 		function = "pca_resync_fnc_moduleHeal";
 		icon = "\A3\ui_f\data\Map\VehicleIcons\pictureHeal_ca.paa";
         isGlobal = 0;
