@@ -129,14 +129,14 @@ private _category = "Thermal Vision";
 
 private _category = "Shenanigans";
 
-/*[ // broken by ace changes and medical uncon screen
+[
     "pca_enableAFKToggle",
     "CHECKBOX",
-    ["Enable AFK Toggle", "Players can toggle ACE's uncon flag to be drag/carryable. (May cause issues with actually going uncon)"],
+    ["Enable AFK Toggle", "Players can activate limping state to be drag/carryable. (May cause issues with medical)"],
     [_title, _category],
-    false,
+    true,
     true
-] call CBA_fnc_addSetting;*/
+] call CBA_fnc_addSetting;
 
 [
     "pca_fingerRange",

@@ -229,26 +229,61 @@ if (!isNil "ace_interact_menu") then {
 
     ["CAManBase", 1, ["ACE_SelfActions","ACE_Equipment"], _action, true] call ace_interact_menu_fnc_addActionToClass;
 
-    /*if (pca_enableAFKToggle) then { // borken for now
-        private _condition = {
-            params ["", "_player"];
-            private _curState = lifeState _player;
-            (_curState isNotEqualTo "INCAPACITATED" || {_curState isEqualTo "INCAPACITATED" && {incapacitatedState _player isNotEqualTo "UNCONSCIOUS"}})
+    if (pca_enableAFKToggle) then {
+        private _condition = { params ["", "_player"];
+           true
         };
-        private _statement = {
-        params ["_target", "_player", "_params", "_actionData"];
-        if (_target getVariable ["ACE_isUnconscious", false]) exitWith {_target setVariable ["ACE_isUnconscious", false, true];};
-            _target setVariable ["ACE_isUnconscious", true, true];
+        private _statement = { params ["_target", "_player", "_params", "_actionData"];
+			private _active = (_target getVariable ["pca_afkToggle", nil]);
+			if (!isNil "_active") exitWith {
+				systemChat "AFK toggled off.";
+				[_active] call CBA_fnc_removePerFrameHandler;
+				_target setVariable ["pca_afkToggle", nil];
+				private _id = _target getVariable ["pca_afkToggleAdd", nil];
+				_target setVariable ["pca_afkToggleAdd", nil];
+				_target removeAction _id;
+				[_target] call ace_medical_engine_fnc_updateDamageEffects;
+			};
+			systemChat "AFK toggled on.";
+			_target setVariable ["pca_afkToggle", (
+				[{
+					player setHitPointDamage ["HitLegs",((player getHitPointDamage "HitLegs") max 0.51),false];
+				}, 0, []] call CBA_fnc_addPerFrameHandler
+			)];
+			[_target, "killed", { params ["_unit"];
+				private _active = (_unit getVariable ["pca_afkToggle", nil]);
+				if (!isNil "_active") then {
+					[_active] call CBA_fnc_removePerFrameHandler;
+					_target setVariable ["pca_afkToggle", nil];
+				};
+				private _id = _target getVariable ["pca_afkToggleAdd", nil];
+				_target setVariable ["pca_afkToggleAdd", nil];
+				_target removeAction _id;
+				_unit removeEventHandler ["killed", _thisID]
+			},[]] call CBA_fnc_addBISEventHandler;
+			_target setVariable ["pca_afkToggleAdd", (
+				_target addAction ["Toggle AFK Off", { params ["_target","","_id"];
+					private _active = (_target getVariable ["pca_afkToggle", nil]);
+					if (!isNil "_active") exitWith {
+						systemChat "AFK toggled off.";
+						[_active] call CBA_fnc_removePerFrameHandler;
+						_target setVariable ["pca_afkToggle", nil];
+						[_target] call ace_medical_engine_fnc_updateDamageEffects;
+						_target setVariable ["pca_afkToggleAdd", nil];
+						_target removeAction _id;
+					};
+				}]
+			)];
         };
         private _disableMod = {
             params ["_target", "_player", "_params", "_actionData"];
-            if (_target getVariable ["ACE_isUnconscious", false]) then {
+            if ((_target getVariable ["pca_afkToggle", -1]) > -1) then {
                 _actionData set [1, "Disable AFK, disallow ace carry"];
             };
         };
         private _action = ["ratsAFK","AFK, allow ace carry","",_statement,_condition, { }, [], [0,0,0], 3, [false, true, false, false, true], _disableMod] call ace_interact_menu_fnc_createAction;
         ["CAManBase", 1, ["ACE_SelfActions","ACE_Equipment"], _action, true] call ace_interact_menu_fnc_addActionToClass;
-    };*/
+    };
 };
 
 ["CBA_loadoutSet", {
