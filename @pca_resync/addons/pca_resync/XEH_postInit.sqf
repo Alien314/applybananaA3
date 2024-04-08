@@ -174,7 +174,7 @@ if (pca_resync_seatDisable) then {missionNamespace setVariable ["ace_medical_eng
 if (pca_resync_seatFix && {!pca_resync_seatDisable}) then {
     missionNamespace setVariable ["ace_medical_engine_disableSeatLocking", true];
     ["CAManBase", "GetInMan", {
-        params ["_unit", "", "_vehicle"];
+        params ["_unit", "", "_vehicle","_turret"];
 
         if (local _vehicle || {_vehicle turretLocal _turret}) then {
             [_unit] call pca_resync_fnc_lockUnconsciousSeat;
