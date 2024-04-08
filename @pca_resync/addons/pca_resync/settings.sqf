@@ -47,7 +47,7 @@ private _category = "Locality";
 [
     "pca_resync_seatDisable",
     "CHECKBOX",
-    ["Disable ACE Seat Locking", "Prevents ACE breaking seats by never locking them, allowing player to change/get in unconscious seats and eject occupants."],
+    ["Disable ACE Seat Locking", "Prevents ACE breaking seats by never locking them, allowing player to change/get in unconscious/dead seats and eject occupants."],
     [_title, _category],
     false,
     true
@@ -66,6 +66,15 @@ private _category = "Locality";
     "pca_resync_allowDumpDead",
     "CHECKBOX",
     ["Unlock Dead Seats", "Allow switching to seats with dead units, ejecting them."],
+    [_title, _category],
+    false,
+    true
+] call CBA_fnc_addSetting;
+
+[
+    "pca_resync_seatDisableAI",
+    "CHECKBOX",
+    ["Disable Locking AI Seats", "Prevents ACE locking seats for AI, allowing player to change/get in unconscious/dead seats and eject occupants."],
     [_title, _category],
     false,
     true

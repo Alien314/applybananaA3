@@ -1,6 +1,8 @@
 if (missionNamespace getVariable ["pca_resync_disableSeatLocking", false]) exitWith {};
 params ["_unit"];
 
+if (pca_resync_seatDisableAI && {!isPlayer _unit}) exitWith {};
+
 private _vehicle = objectParent _unit;
 
 if (isNull _vehicle) exitWith {};
