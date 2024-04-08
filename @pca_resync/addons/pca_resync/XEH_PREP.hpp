@@ -6,3 +6,5 @@
 ["pca\addons\resync\functions\fnc_moduleToggleGroupMarker.sqf", "pca_resync_fnc_moduleToggleGroupMarker"] call CBA_fnc_compileFunction;
 ["pca\addons\resync\functions\fnc_moduleMoveArsenal.sqf", "pca_resync_fnc_moduleMoveArsenal"] call CBA_fnc_compileFunction;
 ["pca\addons\resync\functions\fnc_respawnSync.sqf", "pca_resync_fnc_respawnSync"] call CBA_fnc_compileFunction;
+["pca\addons\resync\functions\fnc_lockUnconsciousSeat.sqf", "pca_resync_fnc_lockUnconsciousSeat"] call CBA_fnc_compileFunction;
+["pca\addons\resync\functions\fnc_unlockUnconsciousSeat.sqf", "pca_resync_fnc_unlockUnconsciousSeat"] call CBA_fnc_compileFunction;

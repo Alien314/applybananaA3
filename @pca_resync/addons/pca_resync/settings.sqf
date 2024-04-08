@@ -1,6 +1,16 @@
 private _title = "PCA";
 
 private _category = "Locality";
+
+[
+    "pca_disconnectAIUncon",
+    "CHECKBOX",
+    ["Enable Uncon for AI on Disconnect", "Prevents uncon death of player AI if a player disconnects."],
+    [_title, _category],
+    true,
+    true
+] call CBA_fnc_addSetting;
+
 [
     "pca_resyncAction",
     "CHECKBOX",
@@ -31,6 +41,33 @@ private _category = "Locality";
     false,
     true,
     { },
+    true
+] call CBA_fnc_addSetting;
+
+[
+    "pca_resync_seatDisable",
+    "CHECKBOX",
+    ["Disable ACE Seat Locking", "Prevents ACE breaking seats by never locking them, allowing player to change/get in unconscious seats and eject occupants."],
+    [_title, _category],
+    false,
+    true
+] call CBA_fnc_addSetting;
+
+[
+    "pca_resync_seatFix",
+    "CHECKBOX",
+    ["Fix ACE Seat Locking", "Fixes ACE breaking seats by not unlocking them when vehicle is not local but turret is."],
+    [_title, _category],
+    true,
+    true
+] call CBA_fnc_addSetting;
+
+[
+    "pca_resync_allowDumpDead",
+    "CHECKBOX",
+    ["Unlock Dead Seats", "Allow switching to seats with dead units, ejecting them."],
+    [_title, _category],
+    false,
     true
 ] call CBA_fnc_addSetting;
 
