@@ -8,3 +8,4 @@
 ["pca\addons\resync\functions\fnc_respawnSync.sqf", "pca_resync_fnc_respawnSync"] call CBA_fnc_compileFunction;
 ["pca\addons\resync\functions\fnc_lockUnconsciousSeat.sqf", "pca_resync_fnc_lockUnconsciousSeat"] call CBA_fnc_compileFunction;
 ["pca\addons\resync\functions\fnc_unlockUnconsciousSeat.sqf", "pca_resync_fnc_unlockUnconsciousSeat"] call CBA_fnc_compileFunction;
+["pca\addons\resync\functions\fnc_moduleUnlock.sqf", "pca_resync_fnc_moduleUnlock"] call CBA_fnc_compileFunction;

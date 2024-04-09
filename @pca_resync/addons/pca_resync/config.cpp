@@ -2,7 +2,7 @@ class CfgPatches {
   class pca_resync {
 	ammo[] = {};
 	magazines[] = {};
-    units[] = {"pca_moduleResync","pca_moduleHeal","pca_moduleRename","pca_moduleMoveArsenal","pca_moduleToggleGroupMarker"};//
+    units[] = {"pca_moduleResync","pca_moduleHeal","pca_moduleRename","pca_moduleMoveArsenal","pca_moduleToggleGroupMarker","pca_moduleUnlock"};//
     weapons[] = {};
     requiredVersion = 0.1;
     author = "Alien314";
@@ -100,6 +100,13 @@ class CfgVehicles
         displayName = "Heal (Unit/Crew/All)";
 		function = "pca_resync_fnc_moduleHeal";
 		icon = "\A3\ui_f\data\Map\VehicleIcons\pictureHeal_ca.paa";
+        isGlobal = 0;
+	};
+	class pca_moduleUnlock : pca_moduleBase {
+        curatorCanAttach = 1;
+        displayName = "Un/Lock Vehicle (Vehicle)";
+		function = "pca_resync_fnc_moduleUnlock";
+		icon = "\A3\ui_f\data\igui\cfg\actions\getincargo_ca.paa";
         isGlobal = 0;
 	};
 
