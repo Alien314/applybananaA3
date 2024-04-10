@@ -23,8 +23,6 @@ if (isServer) then {
                             vehicle _unit setOwner _owner;
                         };
                     };
-                    //if (_unit in playableUnits) exitWith {};
-                    //_unit setDamage [1,false];
                 };
             }] call CBA_fnc_addEventHandler;
 

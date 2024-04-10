@@ -9,6 +9,7 @@ private _isObj = _unit isEqualType objNull;
 private _isPerson = (_isObj && {(_unit isKindOf "CAManBase")});
 if (isNull _unit || { !_isObj }) exitWith {
     //[objNull, "No unit or vehicle selected."] call BIS_fnc_showCuratorFeedbackMessage;
+	if (isNil "zen_dialog") exitWith {};
 	["Global admin heal confirmation", 
 		[
 			["CHECKBOX", "Admin heal everyone?", true, true]

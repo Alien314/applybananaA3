@@ -12,6 +12,7 @@ if (isNull _unit || { !_isObj }) exitWith {
 };
 
 if (_isPerson) exitWith {};
+if (isNil "zen_dialog") exitWith {};
 
 ["Lock/Unlock", 
 	[
