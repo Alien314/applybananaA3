@@ -1,0 +1,1 @@
+pca_suture_enable && { _this call ace_medical_treatment_fnc_canStitch }

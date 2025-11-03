@@ -1,3 +1,6 @@
+#if __has_include("\z\ace\addons\nomedical\script_component.hpp")
+
+#else
 class CfgPatches {
 	class pca_suture {
 		ammo[] = {};
@@ -73,8 +76,8 @@ class CfgUIGrids {
 	};
 };
 
+class RscPicture;
 class RscTitles {
-	class RscPicture;
 	class pca_suture_medicNotification {
 		duration = 1e+011;
 		fadeIn = 1;
@@ -86,7 +89,9 @@ class RscTitles {
 		onUnload = "uiNamespace setVariable ['pca_suture_medicNotifDisplay', displayNull]";
 		class controls {
 			class MedicNotifImage : RscPicture {
+				access = 1;
 				idc = -1;
+				font = "RobotoCondensed";
 				h = "((profileNamespace getVariable ['IGUI_pca_suture_medicNotification_H', (safeZoneW / 15)]) max 0.05)";
 				text = "pca\addons\suture\ui\medicNotif_big_ca.paa";
 				w = "((profileNamespace getVariable ['IGUI_pca_suture_medicNotification_W', ((safeZoneW / 15)/1.2)]) max 0.05)";
@@ -99,6 +104,7 @@ class RscTitles {
 };
 
 class ace_medical_treatment_actions {
+	class BasicBandage;
 	class FieldDressing;
 	class SurgicalKit: FieldDressing {		
 		callbackStart = "pca_suture_fnc_sutureStart";
@@ -107,6 +113,68 @@ class ace_medical_treatment_actions {
 	};
 	class Suture : SurgicalKit {
 		displayName = "Use Suture";
+		picture = "\z\ace\addons\medical_treatment\ui\suture_ca.paa";
 		items[] = {"ACE_suture"};
+		medicRequired = "pca_suture_medicReq";
+		condition = "pca_suture_fnc_canSuture";
 	};
+	class Diagnose: BasicBandage {
+		callbackSuccess = "pca_suture_fnc_diagnose";
+	};
+    class CheckPulse: Diagnose {
+        callbackSuccess = "pca_suture_fnc_checkPulse";
+    };
+    class CheckBloodPressure: CheckPulse {
+        callbackSuccess = "pca_suture_fnc_checkBloodPressure";
+    };
+    class CheckResponse: CheckPulse {
+        callbackSuccess = "pca_suture_fnc_checkResponse";
+    };
 };
+
+/*
+class PCA_Suture {
+	class Triage_Statemachine {
+
+		list = "[player]";
+		skipNull = 0;
+
+		class Awake {
+			onState = "";
+			onStateEntered = "if (pca_suture_autoWake isEqualTo 1) then {_x setVariable ['ace_medical_triageLevel', nil, true];};";
+			onStateLeaving = "";
+
+			class Death {
+				targetState = "Dead";
+				condition = "!alive _x";
+				onTransition = "";
+			};
+
+			class Uncon {
+				targetState = "Unconscious";
+				condition = "_x getVariable ['ace_isUnconscious',false]";
+			};
+		};
+
+		class Dead {
+			class Respawn {
+				targetState = "Awake";
+				condition = "player isKindOf 'Man'";
+				onTransition = "[triageMachine, [player]] call CBA_statemachine_fnc_updateList;";
+			};
+		};
+
+		class Unconscious {
+			class Wake {
+				targetState = "Awake";
+				condition = "!(_x getVariable ['ace_isUnconscious',false])";
+			};
+
+			class Death {
+				targetState = "Dead";
+				condition = "!alive _x";
+			};
+		};
+	};
+};//*/
+#endif
